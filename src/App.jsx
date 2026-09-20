@@ -15,12 +15,10 @@ export default function App() {
       const data = await getUniversities();
       setUniversities(data || []);
       if (data && data.length > 0) {
-        if (!selectedUniversity) {
-          setSelectedUniversity(data[0]);
-        } else {
-          const updated = data.find((u) => u.id === selectedUniversity.id) || data[0];
-          setSelectedUniversity(updated);
-        }
+        setSelectedUniversity((current) => {
+          if (!current) return data[0];
+          return data.find((u) => u.id === current.id) || data[0];
+        });
       } else {
         setSelectedUniversity(null);
       }
@@ -33,6 +31,16 @@ export default function App() {
 
   useEffect(() => {
     loadUniversities();
+    const onFocus = () => loadUniversities();
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') loadUniversities();
+    };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, []);
 
   if (loading) {
