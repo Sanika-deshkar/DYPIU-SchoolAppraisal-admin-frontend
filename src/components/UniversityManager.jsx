@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { createUniversity, updateUniversity, deleteUniversity, uploadAttachment } from '../api/adminApi';
 import { UniversityLeadershipModal } from './UniversityLeadershipModal';
 import { LogoCropModal } from './LogoCropModal';
+import { getAttachmentUrl } from '../utils/attachment';
 
 export const UniversityManager = ({
   universities = [],
@@ -57,7 +58,7 @@ export const UniversityManager = ({
     setCropConfig({
       isOpen: true,
       field,
-      imageSrc: currentSrc,
+      imageSrc: getAttachmentUrl(currentSrc),
       title,
     });
   };
@@ -199,7 +200,7 @@ export const UniversityManager = ({
                     <div className="text-center" style={{ width: '48%' }}>
                       <small className="text-muted d-block fw-semibold" style={{ fontSize: '9px' }}>UNIVERSITY LOGO</small>
                       {u.logoUrl ? (
-                        <img src={u.logoUrl} alt="University Logo" style={{ height: '32px', maxWidth: '100%', objectFit: 'contain' }} />
+                        <img src={getAttachmentUrl(u.logoUrl)} alt="University Logo" style={{ height: '32px', maxWidth: '100%', objectFit: 'contain' }} />
                       ) : (
                         <span className="text-muted fst-italic" style={{ fontSize: '11px' }}>Default Logo</span>
                       )}
@@ -208,7 +209,7 @@ export const UniversityManager = ({
                     <div className="text-center" style={{ width: '48%' }}>
                       <small className="text-muted d-block fw-semibold" style={{ fontSize: '9px' }}>IQAC LOGO</small>
                       {u.iqacLogoUrl ? (
-                        <img src={u.iqacLogoUrl} alt="IQAC Logo" style={{ height: '32px', maxWidth: '100%', objectFit: 'contain' }} />
+                        <img src={getAttachmentUrl(u.iqacLogoUrl)} alt="IQAC Logo" style={{ height: '32px', maxWidth: '100%', objectFit: 'contain' }} />
                       ) : (
                         <span className="text-muted fst-italic" style={{ fontSize: '11px' }}>Default Logo</span>
                       )}
@@ -390,7 +391,7 @@ export const UniversityManager = ({
                               }}
                             >
                               <img
-                                src={formData.logoUrl}
+                                src={getAttachmentUrl(formData.logoUrl)}
                                 alt="University Logo Preview"
                                 style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                               />
@@ -476,7 +477,7 @@ export const UniversityManager = ({
                               }}
                             >
                               <img
-                                src={formData.iqacLogoUrl}
+                                src={getAttachmentUrl(formData.iqacLogoUrl)}
                                 alt="IQAC Logo Preview"
                                 style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                               />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getVersionTree } from '../api/adminApi';
+import { getAttachmentUrl } from '../utils/attachment';
 
 export const LiveFormPreview = ({ versionId, onBack }) => {
   const [schema, setSchema] = useState(null);
@@ -111,7 +112,7 @@ export const LiveFormPreview = ({ versionId, onBack }) => {
         <div className="text-center mb-4 p-4 bg-white rounded shadow-sm border">
           {header.logoUrl && (
             <img
-              src={header.logoUrl}
+              src={getAttachmentUrl(header.logoUrl)}
               alt="Logo"
               style={{ maxHeight: '60px', marginBottom: '10px' }}
             />
